@@ -1,38 +1,40 @@
-### EzPHP
+![EzPHP](assets/logotype.png "EzPHP")
 
-```
- ______     _____  _    _ _____ 
-|  ____|   |  __ \| |  | |  __ \
-| |__   ___| |__) | |__| | |__) |
-|  __| |_  /  ___/|  __  |  ___/
-| |____ / /| |    | |  | | |
-|______/___|_|    |_|  |_|_|
-```
+EzPHP gives you a personal PHP webserver for development. 
 
-EzPHP is an alternative to Xamp/Wamp. EzPHP is the easiest way to setup a PHP development environment for learning PHP programming on Windows.
+The goal of the project is to provide a single .exe file that will get you a ready to use PHP development environment.
 
-The scope of this project is to provide a single .exe file that will get you a PHP developing server.
-
-![EzPHP](https://raw.githubusercontent.com/marcomilon/ezphp/master/ezphp.png)
+![EzPHP](ezphp.png)
 
 ### Installation
 
-1. Download [ezphp.exe](https://github.com/marcomilon/ezphp/releases/download/1.1.1/ezphp.exe).
+1. Download [ezphp.zip](https://github.com/marcomilon/ezphp/releases/download/1.2.0/ezphp.zip).
 2. Create a new folder for your project and copy ezphp.exe.
 3. Run ezphp.exe. If PHP is not installed locally ezphp will try to download and install PHP.
 4. Open your browser in http://localhost:8080. 
 
 Advanced user execute `ezphp.exe -h` to view all options.
 
+```
+Usage of ./ezphp:
+  -S string
+        <addr>:<port> - Run with built-in web server. (default "localhost:8080")
+  -t string
+        <docroot> - Specify document root <docroot> for built-in web server. (default "public_html")
+```
+
 ### How it works?
 
-After launching ezphp.exe you will get a PHP web server on port 8080. 
-To start programming with PHP just copy your PHP files to the **Document root** directory and then open the url **http://localhost:8080** on your web browser.
+After launching ezphp.exe you will get a PHP web server on port 8080. See Usage to change the port. 
+
+To start working just copy your PHP files to the **Document root** folder and then open the url **http://localhost:8080** on your web browser.
 
 ### Why i created EzPHP?
 
-XAMP or equivalent environments are difficult to set up for users who are learning to code. With EzPHP you have a development environment with just one click.
-EzPHP is available only for windows.
+XAMP or equivalent environments are difficult to set up for inexperienced users. 
+EzPHP gives you have a PHP development environment with just one click.
+
+**Note:** EzPHP is available only for windows.
 
 ### Requirements
 
@@ -41,7 +43,9 @@ In case you need it you can download it from https://www.microsoft.com/en-us/dow
 
 ### Contribution
 
-Feel free to contribute! Just create a new issue or a new pull request.
+EzPHP is open source. Feel free to contribute! Just create a new issue or a new pull request.
+
+Thanks [mirzazulfan](https://github.com/mirzazulfan) for the logo.
 
 ### License
 

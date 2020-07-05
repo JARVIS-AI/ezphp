@@ -1,4 +1,4 @@
-package app
+package clients
 
 import (
 	"bufio"
@@ -6,19 +6,19 @@ import (
 	"os"
 	"strings"
 
-	"github.com/marcomilon/ezphp/engine/php"
+	"github.com/marcomilon/ezphp/internal/php"
 )
 
 func StartTerminal(ioCom php.IOCom) {
 Terminal:
 	for {
 		select {
-		case outmsg := <-ioCom.Outmsg:
+		case outmsg := <-ioCom.Stdout:
 			fmt.Print(outmsg)
-		case errMsg := <-ioCom.Errmsg:
+		case errMsg := <-ioCom.Stderr:
 			fmt.Print(errMsg)
-		case confirmMsg := <-ioCom.Confirm:
-			Confirm(confirmMsg, ioCom.Confirm)
+		case confirmMsg := <-ioCom.Stdin:
+			Confirm(confirmMsg, ioCom.Stdin)
 		case <-ioCom.Done:
 			byebye()
 			break Terminal
@@ -37,7 +37,7 @@ func Confirm(question string, result chan string) {
 
 	var confirmation string
 
-	fmt.Printf("%s [y/N]? ", question)
+	fmt.Printf("%s [y/N] ", question)
 	fmt.Scanln(&confirmation)
 
 	confirmation = strings.TrimSpace(confirmation)

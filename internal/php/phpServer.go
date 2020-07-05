@@ -2,12 +2,9 @@ package php
 
 import (
 	"os/exec"
-
-	"github.com/sirupsen/logrus"
 )
 
-type Server struct {
-	PhpExe  string
+type PhpServer struct {
 	Host    string
 	DocRoot string
 }
@@ -22,6 +19,7 @@ type errMsg struct {
 
 func (o outMsg) Write(p []byte) (n int, err error) {
 	s := string(p)
+
 	o.out <- s
 
 	return len(p), nil
@@ -29,25 +27,32 @@ func (o outMsg) Write(p []byte) (n int, err error) {
 
 func (e errMsg) Write(p []byte) (n int, err error) {
 	s := string(p)
+
 	e.err <- s
 
 	return len(p), nil
 }
 
-func (s Server) StartServer(ioCom IOCom) {
-	logrus.Info("Starting web server using " + s.PhpExe + " -S " + s.Host + " -t " + s.DocRoot)
+func NewPhpServer(arguments Arguments) PhpServer {
+	return PhpServer{
+		arguments.Host,
+		arguments.DocRoot,
+	}
+}
 
-	out := outMsg{out: ioCom.Outmsg}
-	err := errMsg{err: ioCom.Errmsg}
+func (s PhpServer) Serve(phpExe string, ioCom IOCom) {
 
-	cmd := exec.Command(s.PhpExe, "-S", s.Host, "-t", s.DocRoot)
+	out := outMsg{out: ioCom.Stdout}
+	err := errMsg{err: ioCom.Stdout}
+
+	cmd := exec.Command(phpExe, "-S", s.Host, "-t", s.DocRoot)
 	cmd.Stdout = out
 	cmd.Stderr = err
 
 	errCmd := cmd.Run()
 
 	if errCmd != nil {
-		ioCom.Errmsg <- errCmd.Error()
+		ioCom.Stderr <- "Error: " + errCmd.Error()
 		ioCom.Done <- true
 	}
 }
